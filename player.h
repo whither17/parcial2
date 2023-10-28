@@ -10,12 +10,13 @@ private:
     unsigned int movimientos;
 public:
     player();
-    char getColor() const;
+    char getColor();
     void setColor(char newColor);
-    unsigned int getFichas() const;
+    unsigned int getFichas();
     void setFichas(unsigned int newFichas);
-    unsigned int getMovimientos() const;
+    unsigned int getMovimientos();
     void setMovimientos(unsigned int newMovimientos);
+    void jugar();
 };
 
 #endif // PLAYER_H

@@ -1,6 +1,6 @@
 #include "player.h"
 
-char player::getColor() const
+char player::getColor()
 {
     return color;
 }
@@ -10,7 +10,7 @@ void player::setColor(char newColor)
     color = newColor;
 }
 
-unsigned int player::getFichas() const
+unsigned int player::getFichas()
 {
     return fichas;
 }
@@ -20,7 +20,7 @@ void player::setFichas(unsigned int newFichas)
     fichas = newFichas;
 }
 
-unsigned int player::getMovimientos() const
+unsigned int player::getMovimientos()
 {
     return movimientos;
 }

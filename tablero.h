@@ -7,8 +7,12 @@
 class tablero
 {
 private:
-    ficha **matriz;
+
     player jugadores[2];
+    ficha **matriz;
+    unsigned int xFinal(char color);
+    unsigned int yFinal(char color);
+    bool fichaAdversario(ficha ficha_actual);
 public:
     tablero();
     void colocarFicha(char color, unsigned int x, unsigned int y);
