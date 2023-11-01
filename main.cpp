@@ -3,26 +3,43 @@
 #include <fstream>
 #include <string>
 
+
+void imprimir_historial(const std::string& path);
+
 int main()
 {
 
-    tablero table1;
-    table1.printTablero();
+    tablero table;
+    unsigned int x, y, player2;
+    char color;
 
-    table1.colocarFicha(white, 5, 3);
-    table1.printTablero();
-    table1.colocarFicha(black, 3, 2);
-    table1.printTablero();
-    table1.colocarFicha(white, 2, 3);
-    table1.printTablero();
-    table1.colocarFicha(black, 4, 2);
-    table1.printTablero();
-    table1.colocarFicha(black, 4, 5);
-    table1.printTablero();
-    return 0;
 
-    /*
-    void imprimir_historial(const std::string& path);
+    while(table.comprobarEstado()) {
+
+        for(int i = 0; i < 2; i++) {
+            table.printTablero();
+            if(i == 0) {
+                color = black;
+                player2 = 1;
+            }
+            else{
+                color = white;
+                player2 = 0;
+            }
+
+            std::cout << color <<" ingrese x: ";
+            std::cin >> x;
+
+            std::cout<< color << " ingrese y: ";
+            std::cin >> y;
+            table.comprobarMov(color, x , y, i, player2);
+        }
+
+
+    }
+
+
+/*
     std::string path = "C:/QtProjects/Parcial2_Shared/register/results.txt";
 
 
@@ -51,8 +68,8 @@ int main()
                 while(!game_ended)
                 {
                     //Preguntar qué ficha ingresar
-                    game->table.colocarFicha(white, 0, 6);
-                    game->table.colocarFicha(black, 0, 7);
+                    game->table.comprobarMov(white, 0, 6, 0, 1);
+                    game->table.comprobarMov(black, 0, 7, 1, 0);
                     game->table.printTablero();
                     game_ended = true;
                 }
@@ -69,8 +86,9 @@ int main()
         }
     }
 
-    */
+
     return 0;
+*/
 }
 
 /* Función para imprimir el historial de partidas*/

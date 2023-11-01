@@ -1,23 +1,23 @@
 #include "tablero.h"
 
-bool tablero::fichaAdversario(ficha ficha_actual)
+bool tablero::fichaAdversario(unsigned int x, unsigned int y, char color)
 {
     bool hayFicha = false;
     char color_adversario = white;
     int nuevaFila;
     int nuevaColumna;
 
-    if(ficha_actual.getColor() == white) color_adversario = black;
+    if(color == white) color_adversario = black;
 
 
-    if((ficha_actual.getX() == 0) && (ficha_actual.getY() == 0)) // esquina sup izquierda
+    if((x == 0) && (y == 0)) // esquina sup izquierda
     {
         int dx[] = {0, 1, 1};
         int dy[] = {1, 0, 1};
 
         for (int i = 0; i < 3; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -25,14 +25,14 @@ bool tablero::fichaAdversario(ficha ficha_actual)
         }
     }
 
-    else if((ficha_actual.getY() == 0) && (ficha_actual.getX() == rows - 1)) // esquina sup derecha
+    else if((y == 0) && (x == rows - 1)) // esquina sup derecha
     {
         int dy[] = {0, 1, 1};
         int dx[] = {-1, -1, 0};
 
         for (int i = 0; i < 3; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -40,14 +40,14 @@ bool tablero::fichaAdversario(ficha ficha_actual)
         }
     }
 
-    else if((ficha_actual.getY() == rows - 1) && (ficha_actual.getX() == 0)) // esquina inf izquierda
+    else if((y == rows - 1) && (x == 0)) // esquina inf izquierda
     {
         int dx[] = {0, 1, 1};
         int dy[] = {-1, -1, 0};
 
         for (int i = 0; i < 3; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -55,14 +55,14 @@ bool tablero::fichaAdversario(ficha ficha_actual)
         }
     }
 
-    else if((ficha_actual.getX() == rows - 1) && (ficha_actual.getY() == - 1))  //// esquina inf derecha
+    else if((x == rows - 1) && (y == - 1))  //// esquina inf derecha
     {
         int dy[] = {-1, -1, 0};
         int dx[] = {-1, 0, -1};
 
         for (int i = 0; i < 3; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -70,14 +70,14 @@ bool tablero::fichaAdversario(ficha ficha_actual)
         }
     }
 
-    else if((ficha_actual.getY() == 0) && ((ficha_actual.getX() > 0) && (ficha_actual.getX() < rows-1))) //lat sup
+    else if((y == 0) && ((x > 0) && (x < rows-1))) //lat sup
     {
         int dy[] = {0, 0, 1, 1, 1};
         int dx[] = {-1, 1, -1, 0, 1};
 
         for (int i = 0; i < 5; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -85,14 +85,14 @@ bool tablero::fichaAdversario(ficha ficha_actual)
         }
     }
 
-    else if((ficha_actual.getX() == rows-1) && ((ficha_actual.getY() > 0) && (ficha_actual.getY() < rows-1))) //lat der
+    else if((x == rows-1) && ((y > 0) && (y < rows-1))) //lat der
     {
         int dy[] = {-1, -1, 0, 1, 1};
         int dx[] = {-1, 0, -1, -1, 0};
 
         for (int i = 0; i < 5; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -100,14 +100,14 @@ bool tablero::fichaAdversario(ficha ficha_actual)
         }
     }
 
-    else if((ficha_actual.getY() == rows-1) && ((ficha_actual.getX() > 0) && (ficha_actual.getX() < rows-1))) //lat inf
+    else if((y == rows-1) && ((x > 0) && (x < rows-1))) //lat inf
     {
         int dy[] = {-1, -1, -1, 0, 0};
         int dx[] = {-1, 0, 1, -1, 1};
 
         for (int i = 0; i < 5; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -115,14 +115,14 @@ bool tablero::fichaAdversario(ficha ficha_actual)
         }
     }
 
-    else if((ficha_actual.getX() == 0) && ((ficha_actual.getY() > 0) && (ficha_actual.getY() < rows-1))) //lat izq
+    else if((x == 0) && ((y > 0) && (y < rows-1))) //lat izq
     {
         int dy[] = {-1, -1, 0, 1, 1};
         int dx[] = {0, 1, 1, 0, 1};
 
         for (int i = 0; i < 5; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -136,8 +136,8 @@ bool tablero::fichaAdversario(ficha ficha_actual)
         int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
         for (int i = 0; i < 8; i++) {
-            nuevaFila =  ficha_actual.getY() + dy[i];
-            nuevaColumna = ficha_actual.getX() + dx[i];
+            nuevaFila =  y + dy[i];
+            nuevaColumna = x + dx[i];
             if (matriz[nuevaFila][nuevaColumna].getColor() == color_adversario) {
                 hayFicha = true;
                 break;
@@ -160,7 +160,7 @@ bool tablero::casillaLibre(unsigned int x, unsigned int y)
     return libre;
 }
 
-bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_enem, unsigned int y_enem)
+bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_enem, unsigned int y_enem, unsigned int player_)
 {
     int j = 0;
     int i = 0;
@@ -176,7 +176,7 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
             j = x_enem;
 
             while(j < rows) {
-                if(matriz[y][j].getColor() == matriz[y_jug][x_jug].getColor()) {
+                if(matriz[y][j].getColor() == jugadores[player_].getColor()) {
                     fichFinal = true;
                     break;
                 }
@@ -190,7 +190,7 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
             j = x_enem;
 
             while(j >= 0) {
-                if(matriz[y][j].getColor() == matriz[y_jug][x_jug].getColor()) {
+                if(matriz[y][j].getColor() == jugadores[player_].getColor()) {
                     fichFinal = true;
                     break;
                 }
@@ -206,8 +206,8 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
             x = x_jug;
             i = y_enem;
 
-            while(j < rows) {
-                if(matriz[i][x].getColor() == matriz[y_jug][x_jug].getColor()) {
+            while(i < rows) {
+                if(matriz[i][x].getColor() == jugadores[player_].getColor()) {
                     fichFinal = true;
                     break;
                 }
@@ -220,8 +220,8 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
             x = x_jug;
             i = y_enem;
 
-            while(j >= 0) {
-                if(matriz[i][x].getColor() == matriz[y_jug][x_jug].getColor()) {
+            while(i >= 0) {
+                if(matriz[i][x].getColor() == jugadores[player_].getColor()) {
                     fichFinal = true;
                     break;
                 }
@@ -239,7 +239,7 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
             j = x_enem;          //col (x)
 
             while(j < rows && i < rows) {
-                if(matriz[i][j].getColor() == matriz[y_jug][x_jug].getColor()) {
+                if(matriz[i][j].getColor() == jugadores[player_].getColor()) {
                     fichFinal = true;
                     break;
                 }
@@ -254,7 +254,7 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
             j = x_enem;
 
             while(j >= 0 && i >= 0) {
-                if(matriz[i][j].getColor() == matriz[y_jug][x_jug].getColor()) {
+                if(matriz[i][j].getColor() == jugadores[player_].getColor()) {
                     fichFinal = true;
                     break;
                 }
@@ -269,7 +269,7 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
             j = x_enem;
 
             while(j < rows && i >= 0) {
-                if(matriz[i][j].getColor() == matriz[y_jug][x_jug].getColor()) {
+                if(matriz[i][j].getColor() == jugadores[player_].getColor()) {
                     fichFinal = true;
                     break;
                 }
@@ -284,7 +284,7 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
             j = x_enem;
 
             while(j >= 0 && i < rows) {
-                if(matriz[i][j].getColor() == matriz[y_jug][x_jug].getColor()) {
+                if(matriz[i][j].getColor() == jugadores[player_].getColor()) {
                     fichFinal = true;
                     break;
                 }
@@ -297,7 +297,7 @@ bool tablero::fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_
     return fichFinal;
 }
 
-void tablero::robarFichas(ficha *ficha_actual)
+void tablero::robarFichas(ficha *ficha_actual, unsigned short player_, unsigned short player2)
 {
     int j = 0;
     int i = 0;
@@ -313,6 +313,8 @@ void tablero::robarFichas(ficha *ficha_actual)
 
             while(matriz[y][j].getColor() != ficha_actual->getColor()) {
                 matriz[y][j].setColor(ficha_actual->getColor());
+                jugadores[player_].addFichas(1);
+                jugadores[player2].restFichas(1);
                 j++;
             }
         }
@@ -324,6 +326,8 @@ void tablero::robarFichas(ficha *ficha_actual)
 
             while(matriz[y][j].getColor() != ficha_actual->getColor()) {
                 matriz[y][j].setColor(ficha_actual->getColor());
+                jugadores[player_].addFichas(1);
+                jugadores[player2].restFichas(1);
                 j--;
             }
         }
@@ -338,6 +342,8 @@ void tablero::robarFichas(ficha *ficha_actual)
 
             while(matriz[i][x].getColor() != ficha_actual->getColor()) {
                 matriz[i][x].setColor(ficha_actual->getColor());
+                jugadores[player_].addFichas(1);
+                jugadores[player2].restFichas(1);
                 i++;
             }
         }
@@ -349,6 +355,8 @@ void tablero::robarFichas(ficha *ficha_actual)
 
             while(matriz[i][x].getColor() != ficha_actual->getColor()) {
                 matriz[i][x].setColor(ficha_actual->getColor());
+                jugadores[player_].addFichas(1);
+                jugadores[player2].restFichas(1);
                 i--;
             }
         }
@@ -363,6 +371,8 @@ void tablero::robarFichas(ficha *ficha_actual)
             j = coord_ficha[0][0];          //col (x)
             while(matriz[i][j].getColor() != ficha_actual->getColor()) {
                 matriz[i][j].setColor(ficha_actual->getColor());
+                jugadores[player_].addFichas(1);
+                jugadores[player2].restFichas(1);
                 i++;
                 j++;
             }
@@ -375,6 +385,8 @@ void tablero::robarFichas(ficha *ficha_actual)
 
             while(matriz[i][j].getColor() != ficha_actual->getColor()) {
                 matriz[i][j].setColor(ficha_actual->getColor());
+                jugadores[player_].addFichas(1);
+                jugadores[player2].restFichas(1);
                 i--;
                 j--;
             }
@@ -387,6 +399,8 @@ void tablero::robarFichas(ficha *ficha_actual)
 
             while(matriz[i][j].getColor() != ficha_actual->getColor()) {
                 matriz[i][j].setColor(ficha_actual->getColor());
+                jugadores[player_].addFichas(1);
+                jugadores[player2].restFichas(1);
                 i--;
                 j++;
             }
@@ -399,11 +413,28 @@ void tablero::robarFichas(ficha *ficha_actual)
 
             while(matriz[i][j].getColor() != ficha_actual->getColor()) {
                 matriz[i][j].setColor(ficha_actual->getColor());
+                jugadores[player_].addFichas(1);
+                jugadores[player2].restFichas(1);
                 i++;
                 j--;
             }
         }
     }
+}
+
+void tablero::comprobarMov(char color, unsigned int x, unsigned int y, unsigned short player_, unsigned short player2)
+{
+    if(casillaLibre(x, y)) {
+        if(fichaAdversario(x, y, color)) {
+            if(fichaFinal(x, y, coord_ficha[0][0], coord_ficha[0][1], player_)) {
+                colocarFicha(color, x, y, player_);
+                robarFichas(&matriz[y][x], player_, player2);
+            }
+            else std::cout << "El movimiento no produce encierro\n";
+        }
+        else std::cout << "No hay una ficha del contrincante cerca\n";
+    }
+    else std::cout << "Casilla ocupada\n";
 }
 
 tablero::tablero()
@@ -428,6 +459,11 @@ tablero::tablero()
         }
     }
 
+    jugadores[0].setColor(black);
+    jugadores[1].setColor(white);
+    jugadores[0].setFichas(2);
+    jugadores[1].setFichas(2);
+
     coord_ficha = new int*[1]; //par coordenadas enemigas
     coord_ficha[0] = new int[2];
 
@@ -436,15 +472,16 @@ tablero::tablero()
         coord_ficha[0][j] = -1;
     }
 
+    fichas = 4;
 }
 
-void tablero::colocarFicha(char color, unsigned int x, unsigned int y)
+void tablero::colocarFicha(char color, unsigned int x, unsigned int y, unsigned short player_)
 {
     matriz[y][x].setColor(color);
     matriz[y][x].setX(x);
     matriz[y][x].setY(y);
-    fichaAdversario(matriz[y][x]);
-    robarFichas(&matriz[y][x]);
+    jugadores[player_].addFichas(1);
+    fichas += 1;
 }
 
 void nombreCols()
@@ -485,16 +522,18 @@ void tablero::printTablero()
 
     std::cout << std::endl;
 
+}
 
-    for(unsigned int col = 0;col < 2; col++){
-        std::cout << coord_ficha[0][col];
-    }
-    std::cout << std::endl;
+bool tablero::comprobarEstado()
+{
+    if((jugadores[0].getMovimientos() == 0 && jugadores[1].getMovimientos() == 0) || fichas == rows*rows) return false;
+    else return true;
+
 }
 
 tablero::~tablero()
 {
-    std::cout <<"destructor";
+
     for(unsigned int i = 0; i < rows; i++)
     {
         delete []matriz[i];
