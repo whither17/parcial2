@@ -1,0 +1,11 @@
+Sun Oct 29 16:06:05 2023;juan;jose;jose;2
+Sun Oct 29 16:06:10 2023;juan;pablo;pablo;2
+Sun Oct 29 16:10:51 2023;juan;pablo;pablo;2
+Sun Oct 29 16:14:01 2023;juan;pablo;pablo;2
+Sun Oct 29 16:23:39 2023;juan;pablo;pablo;2
+Sun Oct 29 16:24:12 2023;juan;david;david;2
+Sun Oct 29 16:25:02 2023;hola;mundo;mundo;2
+Sun Oct 29 17:02:19 2023;juan;david;david;2
+Sun Oct 29 17:24:52 2023;pablo;juan;juan;2
+Mon Oct 30 20:27:51 2023;maria;juan;juan;2
+Tue Oct 31 18:59:45 2023;juan;pablo;pablo;2
