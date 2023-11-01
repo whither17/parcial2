@@ -13,8 +13,8 @@ private:
     bool fichaAdversario(unsigned int x, unsigned int y, char color);
     bool casillaLibre(unsigned int x, unsigned int y);
     bool fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_enem, unsigned int y_enem, unsigned int player_);
-    void robarFichas(ficha *ficha_actual, unsigned short player_, unsigned short player2);
-    void colocarFicha(char color, unsigned int x, unsigned int y, unsigned short player_);
+    void robarFichas(ficha *ficha_actual, unsigned short player_, unsigned short player2, unsigned int cuadrante);
+    void colocarFicha(char color, unsigned int x, unsigned int y);
 
 public:
     tablero();
@@ -22,6 +22,7 @@ public:
     void comprobarMov(char color, unsigned int x, unsigned int y, unsigned short player_, unsigned short player2);
     void printTablero();
     bool comprobarEstado();
+    void motrarEstadisticas();
     ~tablero();
 
 };
