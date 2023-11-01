@@ -39,7 +39,7 @@ int main()
    */
 
     ///*
-    std::string path = "C:/QtProjects/Parcial2_Shared/register/results.txt";
+    std::string path = "results.txt";
 
 
     int opcion = 1;
