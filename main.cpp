@@ -32,7 +32,8 @@ int main()
 
             std::cout<< color << " ingrese y: ";
             std::cin >> y;
-            table.comprobarMov(color, x , y, i, player2);
+            table.comprobarMov(color, x-1 , y-1, i, player2);
+            table.motrarEstadisticas();
         }
     }
    */
