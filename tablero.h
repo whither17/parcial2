@@ -8,9 +8,11 @@ class tablero
 {
 private:
     ficha **matriz;
-    unsigned int xFinal(char color);
-    unsigned int yFinal(char color);
+    int **coord_ficha;
     bool fichaAdversario(ficha ficha_actual);
+    bool casillaLibre(unsigned int x, unsigned int y);
+    bool fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_enem, unsigned int y_enem);
+    void robarFichas(ficha *ficha_actual);
 public:
     tablero();
     player jugadores[2];
