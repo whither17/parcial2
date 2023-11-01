@@ -155,7 +155,7 @@ bool tablero::fichaAdversario(unsigned int x, unsigned int y, char color)
 bool tablero::casillaLibre(unsigned int x, unsigned int y)
 {
     bool libre;
-    if(matriz[x][y].getColor() != ' ') libre = false;
+    if(matriz[y][x].getColor() != ' ') libre = false;
     else libre = true;
     return libre;
 }

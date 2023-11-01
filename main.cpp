@@ -8,7 +8,7 @@ void imprimir_historial(const std::string& path);
 
 int main()
 {
-
+    /*
     tablero table;
     unsigned int x, y, player2;
     char color;
@@ -34,12 +34,10 @@ int main()
             std::cin >> y;
             table.comprobarMov(color, x , y, i, player2);
         }
-
-
     }
+   */
 
-
-/*
+    ///*
     std::string path = "C:/QtProjects/Parcial2_Shared/register/results.txt";
 
 
@@ -62,15 +60,33 @@ int main()
             {
                 juego* game = new juego;
                 game->start_game();
-                game->table.printTablero();
+
+                unsigned int c1, c2, player2;
+                char col;
 
                 bool game_ended = false;
                 while(!game_ended)
                 {
-                    //Preguntar qué ficha ingresar
-                    game->table.comprobarMov(white, 0, 6, 0, 1);
-                    game->table.comprobarMov(black, 0, 7, 1, 0);
-                    game->table.printTablero();
+                    while(game->table.comprobarEstado()) {
+                        for(int i = 0; i < 2; i++) {
+                            game->table.printTablero();
+                            if(i == 0) {
+                                col = black;
+                                player2 = 1;
+                            }
+                            else{
+                                col = white;
+                                player2 = 0;
+                            }
+
+                            std::cout << col <<" ingrese x: ";
+                            std::cin >> c1;
+
+                            std::cout<< col << " ingrese y: ";
+                            std::cin >> c2;
+                            game->table.comprobarMov(col, c1 , c2, i, player2);
+                        }
+                    }
                     game_ended = true;
                 }
                 game->juego_finalizado(game,path);
@@ -85,13 +101,12 @@ int main()
             break;
         }
     }
-
-
+    //*/
     return 0;
-*/
+
 }
 
-/* Función para imprimir el historial de partidas*/
+///* Función para imprimir el historial de partidas*/
 
 void splitt_line(std::string* data, std::string row)
 {
