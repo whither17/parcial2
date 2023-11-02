@@ -23,10 +23,10 @@ int main()
 
         switch(opcion)
         {
-        case 0: std::cout << "Has salido"<<std::endl;
+        case 0: std::cout << "\n------------------------------------\n Has salido \n------------------------------------\n\n"<<std::endl;
             break;
 
-        case 1: std::cout <<"Nueva Partida"<<std::endl;
+        case 1: std::cout <<"\n------------------------------------\n Nueva Partida \n------------------------------------\n\n";
             {
                 juego* game = new juego;
                 game->start_game();
@@ -35,7 +35,7 @@ int main()
                 delete game;
             }
             break;
-        case 2: std::cout << "Historico de Partidas"<<std::endl;
+        case 2: std::cout << "\n------------------------------------\n Historico de Partidas \n------------------------------------\n\n"<<std::endl;
             {
                 imprimir_historial(path);
             }

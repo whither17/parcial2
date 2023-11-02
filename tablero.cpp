@@ -214,6 +214,7 @@ tablero::tablero()
     jug_actual = 1;
     enemy = -1;
     fichas = 63;
+    //fichas = 4;
 }
 
 unsigned int tablero::current_player()
@@ -324,6 +325,7 @@ void tablero::status_game()
     std::cout << "fichas " << jugadores[0].getColor() << " : " << jugadores[0].getFichas() << std::endl;
     std::cout << "fichas " << jugadores[1].getColor() << " : " << jugadores[1].getFichas() << std::endl;
     std::cout << fichas << " <- en el tablero\n";
+    std::cout<<"\n";
 }
 
 tablero::~tablero()
