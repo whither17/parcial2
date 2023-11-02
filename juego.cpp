@@ -11,7 +11,7 @@ juego::juego()
 
 void juego::jugar(std::string name1, std::string name2)
 {
-    unsigned int x, y, ban = 0;
+    unsigned int x, y;
 
     std::cout << "\nEl juego ha iniciado, ** en Othello siempre inician las negras! **\n\n";
     table.printTablero();
@@ -43,6 +43,7 @@ void juego::jugar(std::string name1, std::string name2)
             }
             table.printTablero();
             table.status_game();
+            table.setSaltos(0);
         }
     }
 
@@ -64,7 +65,7 @@ void juego::jugar(std::string name1, std::string name2)
 
 unsigned int juego::entradaNum()
 {
-    unsigned int y;
+    int y;
 
     while(true) {
         std::cout << "Ingrese la fila: ";
@@ -91,7 +92,7 @@ unsigned int juego::entradaString()
     std::string *nombres;
     std::string x;
     std::locale loc;
-    unsigned int x_, j;
+    unsigned int x_;
 
     nombres = table.getNombres_col();
 
@@ -212,7 +213,8 @@ void juego::reglas()
     std::cout << "7. El juego continua hasta que no se pueden realizar mas movimientos legales." << std::endl;
     std::cout << "8. El jugador con mas fichas de su color en el tablero al final del juego gana." << std::endl;
     std::cout << "9. Si un jugador no puede hacer un movimiento valido, pasa su turno al oponente." << std::endl;
-    std::cout << "10. El juego termina cuando ambos jugadores no pueden hacer movimientos legales o el tablero esta lleno.\n" << std::endl;
+    std::cout << "10. El juego termina cuando ambos jugadores cedieron sus turnos consecutivamente o el tablero esta lleno." << std::endl;
+    std::cout << "11. Para ceder un turno ingrese fila 0, columna 0\n" << std::endl;
     std::cout << "-----------------------------------------------------" << std::endl;
     std::cout << "Para comenzar define el nombre de los jugadores" << std::endl;
     std::cout << "-----------------------------------------------------\n" << std::endl;

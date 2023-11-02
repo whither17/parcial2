@@ -121,10 +121,27 @@ public:
 *@return: void.
 */
     void cederTurno(int current_player);
+/*Funcion que cambia el turno del jugador actual por su contrincante.
+*
+*@parametros: int.
+*@return: void.
+*/
+
+    void setSaltos(short newSaltos);
+/*Funcion que recibe un short y cambia el valor de saltos
+*por newSaltos.
+*
+*@parametros: short.
+*@return: void.
+*/
 
     void addSaltos();
+/*Funcion que incrementa el atributo saltos en 1.
+*
+*@parametros: void.
+*@return: void.
+*/
     ~tablero();   //destructor
-
 };
 
 #endif // TABLERO_H

@@ -3,11 +3,12 @@
 void tablero::robarFichas(char color, int y, int x, int dy, int dx)
 {
     char enemyColour = white;
+
     if (color == white)
     {
         enemyColour = black;
     }
-    std::cout << __LINE__ << std::endl;
+
     while(matriz[y][x].getColor() == enemyColour)
     {
         matriz[y][x].setColor(color);
@@ -22,6 +23,11 @@ void tablero::robarFichas(char color, int y, int x, int dy, int dx)
 std::string *tablero::getNombres_col() const
 {
     return nombres_col;
+}
+
+void tablero::setSaltos(short newSaltos)
+{
+    saltos = newSaltos;
 }
 
 bool tablero::checkFlip(char color, int y, int x, int dy, int dx)
@@ -47,7 +53,7 @@ bool tablero::checkFlip(char color, int y, int x, int dy, int dx)
             y += dy;                                              //actualizar las coordenadas a la ficha siguiente de la misma linea
             x += dx;
 
-            if((y >= 0) && (y < rows) && (x >= 0) && (x < rows))
+            if((y >= 0) && (y < rows) && (x >= 0) && (x < rows))   //comprobacion index fuera del rango
             {
                 if (matriz[y][x].getColor() == ' ')
                 {
@@ -286,7 +292,6 @@ void tablero::printTablero()
     std::cout << ' ';
     printNombresCol();
     std::cout << std::endl;
-
 }
 
 bool tablero::comprobarEstado()
