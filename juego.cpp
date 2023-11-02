@@ -13,7 +13,7 @@ void juego::jugar(std::string name1, std::string name2)
 {
     unsigned int x, y;
 
-    std::cout << "\nEl juego ha iniciado, ** en Othello siempre inicia las negras! **\n\n";
+    std::cout << "\nEl juego ha iniciado, ** en Othello siempre inician las negras! **\n\n";
     table.printTablero();
     table.status_game();
     while (table.comprobarEstado())

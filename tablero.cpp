@@ -7,7 +7,7 @@ void tablero::robarFichas(char color, int y, int x, int dy, int dx)
     {
         enemyColour = black;
     }
-
+    std::cout << __LINE__ << std::endl;
     while(matriz[y][x].getColor() == enemyColour)
     {
         matriz[y][x].setColor(color);
@@ -34,26 +34,31 @@ bool tablero::checkFlip(char color, int y, int x, int dy, int dx)
         color_enemigo = black;     //seleccion de color
     }
 
-    if ((y < 0) || (y >= rows) || (x < 0) || (x >= rows))     //si la posicion esta fuera del tablero
+    if ((y < 0) || (y >= rows) || (x < 0) || (x >= rows))          //si la posicion esta fuera del tablero
     {
         check = false;
     }
 
     else if (matriz[y][x].getColor() == color_enemigo)
     {
+
         while ((y >= 0) && (y < rows) && (x >= 0) && (x < rows))   //mientras se este dentro del tablero
         {
-            y += dy;
+            y += dy;                                              //actualizar las coordenadas a la ficha siguiente de la misma linea
             x += dx;
-            if (matriz[y][x].getColor() == ' ')
+
+            if((y >= 0) && (y < rows) && (x >= 0) && (x < rows))
             {
-                check = false;
-                break;
-            }
-            if (matriz[y][x].getColor() == color)
-            {
-                check = true;
-                break;
+                if (matriz[y][x].getColor() == ' ')
+                {
+                    check = false;
+                    break;
+                }
+                if (matriz[y][x].getColor() == color)                  //busca una nueva ficha del mismo color en la linea
+                {
+                    check = true;
+                    break;
+                }
             }
         }
     }
@@ -213,7 +218,7 @@ tablero::tablero()
     winner = -1;
     jug_actual = 1;
     enemy = -1;
-    fichas = 63;
+    fichas = 4;
 }
 
 unsigned int tablero::current_player()

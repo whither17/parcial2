@@ -8,6 +8,7 @@ void imprimir_historial(const std::string& path);
 
 int main()
 {
+
     std::string path = "results.txt";
 
     int opcion = 1;
