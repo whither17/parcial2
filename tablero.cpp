@@ -215,6 +215,7 @@ tablero::tablero()
     jugadores[0].setFichas(2);
     jugadores[1].setFichas(2);
 
+    saltos = 0;
     winner = -1;
     jug_actual = 1;
     enemy = -1;
@@ -300,7 +301,7 @@ bool tablero::comprobarEstado()
         winner = 0;
         return false;
     }
-    else if(fichas == rows*rows)
+    else if(fichas == rows*rows  || saltos == 2)
     {
         if (jugadores[0].getFichas() > jugadores[1].getFichas())
         {
@@ -329,6 +330,19 @@ void tablero::status_game()
     std::cout << "fichas " << jugadores[0].getColor() << " : " << jugadores[0].getFichas() << std::endl;
     std::cout << "fichas " << jugadores[1].getColor() << " : " << jugadores[1].getFichas() << std::endl;
     std::cout << fichas << " <- en el tablero\n";
+    std::cout<<"\n";
+}
+
+void tablero::cederTurno(int current_player)
+{
+    std::cout << "Turno cedido\n\n";
+    jug_actual = -1 * jug_actual; //invertir jugadores para cambio de turno;
+    enemy = -1 * enemy;
+}
+
+void tablero::addSaltos()
+{
+    saltos = saltos+1;
 }
 
 tablero::~tablero()

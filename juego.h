@@ -14,13 +14,14 @@ private:
     void jugar(std::string name1, std::string name2);
     unsigned int entradaNum();
     unsigned int entradaString();
+    void set_jugadores(std::string pl1, std::string pl2);
+    void set_fichas();
+    void append_results(const std::string& path);
+    void reglas();
 public:
     juego();
     tablero table;
     void start_game();
-    void set_jugadores(std::string pl1, std::string pl2);
-    void set_fichas();
-    void append_results(const std::string& path);
     void juego_finalizado(juego* game, const std::string& path);
     ~juego();
 };

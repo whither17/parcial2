@@ -8,10 +8,10 @@ class tablero
 {
 private:
 
-    ficha **matriz;              //representacion bidimensional del tablero
-    unsigned int fichas;         //cantidad de fichas sobre el tablero
-    std::string *nombres_col;    //nombres de las columnas del tablero, se usa para comprobar entradas
-    short jug_actual, enemy, winner; //turno, ganador
+    ficha **matriz;                  //representacion bidimensional del tablero
+    unsigned int fichas;             //cantidad de fichas sobre el tablero
+    std::string *nombres_col;        //nombres de las columnas del tablero, se usa para comprobar entradas
+    short jug_actual, enemy, winner, saltos; //turno, ganador
 
 //  ****
 
@@ -120,7 +120,9 @@ public:
 *@parametros: void.
 *@return: void.
 */
+    void cederTurno(int current_player);
 
+    void addSaltos();
     ~tablero();   //destructor
 
 };

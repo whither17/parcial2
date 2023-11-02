@@ -11,7 +11,7 @@ juego::juego()
 
 void juego::jugar(std::string name1, std::string name2)
 {
-    unsigned int x, y;
+    unsigned int x, y, ban = 0;
 
     std::cout << "\nEl juego ha iniciado, ** en Othello siempre inician las negras! **\n\n";
     table.printTablero();
@@ -27,19 +27,26 @@ void juego::jugar(std::string name1, std::string name2)
         y = entradaNum();    //verificar las filas
         x = entradaString(); //verificar las columnas
 
-        if (table.comprobarMov(x-1, y-1))
-        {
-            table.hacerMovimiento(x-1, y-1);
+        if(x == 0 && y == 0) {
+            table.addSaltos();
+            table.cederTurno(table.current_player());
         }
-        else
-        {
-            std::cout << "Movimiento incorrecto\n";
+
+        else {
+            if (table.comprobarMov(x-1, y-1))
+            {
+                table.hacerMovimiento(x-1, y-1);
+            }
+            else
+            {
+                std::cout << "Movimiento incorrecto\n";
+            }
+            table.printTablero();
+            table.status_game();
         }
-        table.printTablero();
-        table.status_game();
     }
 
-    std::cout << "Fin de la partida!\n";
+    std::cout << "Fin de la partida!\n------------------------------------\n";
 
     if (table.darGanador() != -1)
     {
@@ -62,7 +69,7 @@ unsigned int juego::entradaNum()
     while(true) {
         std::cout << "Ingrese la fila: ";
         if(std::cin >> y) {
-            if(y > 0 && y <= rows) return y;
+            if(y >= 0 && y <= rows) return y;
 
             else {
                 std::cout << "Entrada no valida\n";
@@ -92,19 +99,25 @@ unsigned int juego::entradaString()
 
         std::cout << "Ingrese la columna: ";
         std::cin >> x;
-
-        for (char &c : x) {               //pasamos a mayusculas
-            c = std::toupper(c, loc);
-        }
-
-        for (int i = 0; i < rows; i++) {  //buscamos los nombres
-
-            if(x == nombres[i]) {          //buscamos si coinciden
-                x_ = i + 1;                //retornamos la posicion encontrada
-                return x_;
+        if(x != "0")
+        {
+            for (char &c : x) {               //pasamos a mayusculas
+                c = std::toupper(c, loc);
             }
+
+            for (int i = 0; i < rows; i++) {  //buscamos los nombres
+
+                if(x == nombres[i]) {          //buscamos si coinciden
+                    x_ = i + 1;                //retornamos la posicion encontrada
+                    return x_;
+                }
+            }
+            std::cout << "columna incorrecta\n";
         }
-        std::cout << "columna incorrecta\n";
+        else
+        {
+            return x_ = 0;
+        }
     }
 }
 
@@ -113,10 +126,13 @@ void juego::start_game()
     std::string name1;
     std::string name2;
 
+    reglas();
+
     std::cout<<"Ingrese el nombre del jugador 1: ";
     std::cin>>name1;
     std::cout<<"Ingrese el nombre del jugador 2: ";
     std::cin>>name2;
+
     set_jugadores(name1, name2);
     jugar(name1, name2);
 }
@@ -143,14 +159,24 @@ void juego::append_results(const std::string &path)
     std::string horaActual = std::ctime(&time);
     horaActual.pop_back(); //Quitar el caracter de finalización de línea
 
-    data[0] = horaActual;
-    data[1] = Datosjuego[0][0];
-    data[2] = Datosjuego[1][0];
-    //data[3] = Datosjuego[table.darGanador()][0]; //para cuando este definida la función
-    data[3] = Datosjuego[1][0]; //Test
-    //data[4] = Datosjuego[table.darGanador()][1]; //para cuando este definida la función
-    data[4] = std::to_string(2); //Test
+    data[0] = horaActual; //Fecha y hora de la partida
+    data[1] = Datosjuego[0][0]; //Nombre del primer jugador
+    data[2] = Datosjuego[1][0]; // Nombre del segundo jugador
 
+    if (table.darGanador() == -1)
+    {
+        data[3] = "Empate";
+        data[4] = Datosjuego[0][1]; //Igual número de fichas
+    }
+    else
+    {
+        bool gan;
+        gan = table.darGanador();
+        data[3] = Datosjuego[!gan][0]; //Jugador Ganador
+        //data[3] = Datosjuego[1][0]; //Test
+        data[4] = Datosjuego[gan][1]; //Número de Fichas del ganador
+        //data[4] = std::to_string(2); //Test
+    }
     std::ofstream archivo(path, std::ios::app); // Modo Append
 
     if(!archivo.is_open()) {
@@ -172,9 +198,31 @@ void juego::append_results(const std::string &path)
     delete[] data;
 }
 
+void juego::reglas()
+{
+    std::cout << "------------------------------------" << std::endl;
+    std::cout << "Reglas" << std::endl;
+    std::cout << "------------------------------------\n" << std::endl;
+    std::cout << "1. Othello se juega en un tablero de 8x8." << std::endl;
+    std::cout << "2. Hay dos jugadores, uno con fichas negras(-) y otro con fichas blancas(*)." << std::endl;
+    std::cout << "3. El juego comienza con cuatro fichas en el centro del tablero." << std::endl;
+    std::cout << "4. Los jugadores se alternan para colocar una ficha de su color en el tablero." << std::endl;
+    std::cout << "5. Para hacer un movimiento valido, debes rodear fichas del oponente entre tus fichas en cualquier direccion." << std::endl;
+    std::cout << "6. Todas las fichas del oponente encerradas se voltean y se convierten en tus fichas." << std::endl;
+    std::cout << "7. El juego continua hasta que no se pueden realizar mas movimientos legales." << std::endl;
+    std::cout << "8. El jugador con mas fichas de su color en el tablero al final del juego gana." << std::endl;
+    std::cout << "9. Si un jugador no puede hacer un movimiento valido, pasa su turno al oponente." << std::endl;
+    std::cout << "10. El juego termina cuando ambos jugadores no pueden hacer movimientos legales o el tablero esta lleno.\n" << std::endl;
+    std::cout << "-----------------------------------------------------" << std::endl;
+    std::cout << "Para comenzar define el nombre de los jugadores" << std::endl;
+    std::cout << "-----------------------------------------------------\n" << std::endl;
+}
+
 void juego::juego_finalizado(juego *game, const std::string &path)
 {
-    std::cout<<"La partida ha finalizado, los resultados seran agregados al historial " <<std::endl;
+    std::cout<<"\n";
+    std::cout<<"Los resultados seran agregados al historial " <<std::endl;
+    std::cout<<"\n"<<"\n";
     game->set_fichas();
     game->append_results(path);
 
