@@ -8,48 +8,17 @@ void imprimir_historial(const std::string& path);
 
 int main()
 {
-    /*
-    tablero table;
-    unsigned int x, y, player2;
-    char color;
-
-
-    while(table.comprobarEstado()) {
-
-        for(int i = 0; i < 2; i++) {
-            table.printTablero();
-            if(i == 0) {
-                color = black;
-                player2 = 1;
-            }
-            else{
-                color = white;
-                player2 = 0;
-            }
-
-            std::cout << color <<" ingrese x: ";
-            std::cin >> x;
-
-            std::cout<< color << " ingrese y: ";
-            std::cin >> y;
-            table.comprobarMov(color, x-1 , y-1, i, player2);
-            table.motrarEstadisticas();
-        }
-    }
-   */
-
-    ///*
-    std::string path = "C:/QtProjects/Parcial2_Shared/register/results.txt";
-
+    std::string path = "results.txt";
 
     int opcion = 1;
 
     while(opcion != 0){
 
-        std::cout<<"--Bienvenido al juego de Othello--"<<std::endl;
-        std::cout<<"Ingrese 1 para jugar una nueva partida"<<std::endl;
-        std::cout<<"Ingrese 2 para mostrar historial de partidas"<<std::endl;
-        std::cout<<"Ingrese 0 para salir del Juego"<<std::endl;
+        std::cout << "\n -- Bienvenido al juego de Othello --\n ------------------------------------\n";
+        std::cout << "1 - Jugar una nueva partida\n";
+        std::cout << "2 - Mostrar historial de partidas\n";
+        std::cout << "0 - Salir del Juego\n";
+        std::cout << "Ingrese una opcion: ";
         std::cin >> opcion;
 
         switch(opcion)
@@ -61,35 +30,6 @@ int main()
             {
                 juego* game = new juego;
                 game->start_game();
-
-                unsigned int c1, c2, player2;
-                char col;
-
-                bool game_ended = false;
-                while(!game_ended)
-                {
-                    while(game->table.comprobarEstado()) {
-                        for(int i = 0; i < 2; i++) {
-                            game->table.printTablero();
-                            if(i == 0) {
-                                col = black;
-                                player2 = 1;
-                            }
-                            else{
-                                col = white;
-                                player2 = 0;
-                            }
-
-                            std::cout << col <<" ingrese x: ";
-                            std::cin >> c1;
-
-                            std::cout<< col << " ingrese y: ";
-                            std::cin >> c2;
-                            game->table.comprobarMov(col, c1 , c2, i, player2);
-                        }
-                    }
-                    game_ended = true;
-                }
                 game->juego_finalizado(game,path);
 
                 delete game;
@@ -102,7 +42,7 @@ int main()
             break;
         }
     }
-    //*/
+
     return 0;
 
 }

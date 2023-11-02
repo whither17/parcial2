@@ -7,21 +7,30 @@
 class tablero
 {
 private:
+
     ficha **matriz;
-    int **coord_ficha;
     unsigned int fichas;
-    bool fichaAdversario(unsigned int x, unsigned int y, char color);
-    bool casillaLibre(unsigned int x, unsigned int y);
-    bool fichaFinal(unsigned int x_jug, unsigned int y_jug, unsigned int x_enem, unsigned int y_enem, unsigned int player_);
-    void robarFichas(ficha *ficha_actual, unsigned short player_, unsigned short player2);
-    void colocarFicha(char color, unsigned int x, unsigned int y, unsigned short player_);
+    std::string *nombres_col;
+    short jug_actual, enemy, winner;
+
+    bool checkFlip(char color, int y, int x, int dy, int dx);
+    void robarFichas(char color, int y, int x, int dy, int dx);
+    void nombreCols();
+    void printNombresCol();
 
 public:
+
     tablero();
     player jugadores[2];
-    void comprobarMov(char color, unsigned int x, unsigned int y, unsigned short player_, unsigned short player2);
+    std::string *getNombres_col() const;
+    unsigned int current_player();
+    unsigned int enemy_player();
+    bool comprobarMov(int x, int y);
+    void hacerMovimiento(int x, int y);
     void printTablero();
     bool comprobarEstado();
+    short darGanador();
+    void status_game();
     ~tablero();
 
 };

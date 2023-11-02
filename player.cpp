@@ -31,21 +31,6 @@ void player::setFichas(unsigned int newFichas)
     fichas = newFichas;
 }
 
-unsigned int player::getMovimientos()
-{
-    return movimientos;
-}
-
-void player::setMovimientos(unsigned int newMovimientos)
-{
-    movimientos = newMovimientos;
-}
-
-void player::jugar()
-{
-
-}
-
 player::player()
 {
 

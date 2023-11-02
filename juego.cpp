@@ -7,10 +7,105 @@ juego::juego()
     {
         Datosjuego[i] = new std::string[2];
     }
+}
 
-    table.jugadores[0].setColor(' ');
-    table.jugadores[1].setColor(' ');
+void juego::jugar(std::string name1, std::string name2)
+{
+    unsigned int x, y;
 
+    std::cout << "\nEl juego ha iniciado, ** en Othello siempre inicia las negras! **\n\n";
+    table.printTablero();
+    table.status_game();
+    while (table.comprobarEstado())
+    {
+        if(table.current_player() == 1) {
+
+            std::cout << "Turno de " << name1 << " (" << black<< ")" << "\n";
+        }
+        else std::cout << "Turno de " << name2 << " (" << white << ")" << "\n";
+
+        y = entradaNum();    //verificar las filas
+        x = entradaString(); //verificar las columnas
+
+        if (table.comprobarMov(x-1, y-1))
+        {
+            table.hacerMovimiento(x-1, y-1);
+        }
+        else
+        {
+            std::cout << "Movimiento incorrecto\n";
+        }
+        table.printTablero();
+        table.status_game();
+    }
+
+    std::cout << "Fin de la partida!\n";
+
+    if (table.darGanador() != -1)
+    {
+        std::cout << " *** Ganador -> ";
+        if(table.darGanador() == 0)
+            std::cout << name2 << " <- con " << table.jugadores[0].getFichas() << " fichas ***\n";
+        else if (table.darGanador() == 1)
+            std::cout << name1 << " <- con " << table.jugadores[1].getFichas() << " fichas ***\n";
+    }
+    else
+    {
+        std::cout << "--- Empate ---\n";
+    }
+}
+
+unsigned int juego::entradaNum()
+{
+    unsigned int y;
+
+    while(true) {
+        std::cout << "Ingrese la fila: ";
+        if(std::cin >> y) {
+            if(y > 0 && y <= rows) return y;
+
+            else {
+                std::cout << "Entrada no valida\n";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
+
+        else {
+            std::cout << "Entrada no valida\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+}
+
+unsigned int juego::entradaString()
+{
+    std::string *nombres;
+    std::string x;
+    std::locale loc;
+    unsigned int x_, j;
+
+    nombres = table.getNombres_col();
+
+    while(true) {
+
+        std::cout << "Ingrese la columna: ";
+        std::cin >> x;
+
+        for (char &c : x) {               //pasamos a mayusculas
+            c = std::toupper(c, loc);
+        }
+
+        for (int i = 0; i < rows; i++) {  //buscamos los nombres
+
+            if(x == nombres[i]) {          //buscamos si coinciden
+                x_ = i + 1;                //retornamos la posicion encontrada
+                return x_;
+            }
+        }
+        std::cout << "columna incorrecta\n";
+    }
 }
 
 void juego::start_game()
@@ -23,6 +118,7 @@ void juego::start_game()
     std::cout<<"Ingrese el nombre del jugador 2: ";
     std::cin>>name2;
     set_jugadores(name1, name2);
+    jugar(name1, name2);
 }
 
 void juego::set_jugadores(std::string pl1, std::string pl2)
@@ -50,9 +146,9 @@ void juego::append_results(const std::string &path)
     data[0] = horaActual;
     data[1] = Datosjuego[0][0];
     data[2] = Datosjuego[1][0];
-    //data[3] = Datosjuego[table.darGanador()-1][0]; para cuando este definida la función
+    //data[3] = Datosjuego[table.darGanador()][0]; //para cuando este definida la función
     data[3] = Datosjuego[1][0]; //Test
-    //data[4] = Datosjuego[table.darGanador()-1][1]; para cuando este definida la función
+    //data[4] = Datosjuego[table.darGanador()][1]; //para cuando este definida la función
     data[4] = std::to_string(2); //Test
 
     std::ofstream archivo(path, std::ios::app); // Modo Append
@@ -74,7 +170,6 @@ void juego::append_results(const std::string &path)
     }
 
     delete[] data;
-
 }
 
 void juego::juego_finalizado(juego *game, const std::string &path)
@@ -84,7 +179,6 @@ void juego::juego_finalizado(juego *game, const std::string &path)
     game->append_results(path);
 
 }
-
 
 juego::~juego()
 {

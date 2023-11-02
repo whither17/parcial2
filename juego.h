@@ -4,11 +4,16 @@
 #include "tablero.h"
 #include <chrono>
 #include <fstream>
+#include <string>
+#include <locale>
 
 class juego
 {
 private:
     std::string** Datosjuego;
+    void jugar(std::string name1, std::string name2);
+    unsigned int entradaNum();
+    unsigned int entradaString();
 public:
     juego();
     tablero table;
