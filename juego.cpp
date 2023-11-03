@@ -29,7 +29,7 @@ void juego::jugar(std::string name1, std::string name2)
 
         if(x == 0 && y == 0) {
             table.addSaltos();
-            table.cederTurno(table.current_player());
+            table.cederTurno();
         }
 
         else {

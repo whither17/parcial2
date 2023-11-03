@@ -1,6 +1,6 @@
 #include "tablero.h"
 
-void tablero::robarFichas(char color, int y, int x, int dy, int dx)
+void tablero::robarFichas(char color, int y, int x, int i)
 {
     char enemyColour = white;
 
@@ -14,10 +14,18 @@ void tablero::robarFichas(char color, int y, int x, int dy, int dx)
         matriz[y][x].setColor(color);
         jugadores[current_player()].addFichas(1);
         jugadores[enemy_player()].restFichas(1);
-        y += dy;
-        x += dx;
+        y += dy[i];
+        x += dx[i];
     }
     return;
+}
+
+bool tablero::Isfree(int y, int x)
+{
+
+    if (matriz[y][x].getColor() == ' ') return true;
+    else return false;
+
 }
 
 std::string *tablero::getNombres_col() const
@@ -30,7 +38,7 @@ void tablero::setSaltos(short newSaltos)
     saltos = newSaltos;
 }
 
-bool tablero::checkFlip(char color, int y, int x, int dy, int dx)
+bool tablero::checkFlip(char color, int y, int x, int i)
 {
     char color_enemigo = white;
     bool check = false;
@@ -50,12 +58,12 @@ bool tablero::checkFlip(char color, int y, int x, int dy, int dx)
 
         while ((y >= 0) && (y < rows) && (x >= 0) && (x < rows))   //mientras se este dentro del tablero
         {
-            y += dy;                                              //actualizar las coordenadas a la ficha siguiente de la misma linea
-            x += dx;
+            y += dy[i];                                              //actualizar las coordenadas a la ficha siguiente de la misma linea
+            x += dx[i];
 
             if((y >= 0) && (y < rows) && (x >= 0) && (x < rows))   //comprobacion index fuera del rango
             {
-                if (matriz[y][x].getColor() == ' ')
+                if (Isfree(y, x))
                 {
                     check = false;
                     break;
@@ -78,7 +86,7 @@ bool tablero::comprobarMov(int x, int y)
 
     if ((y >= 0) || (y < rows) || (x >= 0) || (x < rows)) //verificar si la coordenada ingresada está dentro del tablero
     {
-        if (matriz[y][x].getColor() == ' ')    //verifica casilla vacia
+        if (Isfree(y, x))  //verifica casilla vacia
         {
             char color = white;
             if (current_player() == 1)      //seleccion de color
@@ -88,7 +96,7 @@ bool tablero::comprobarMov(int x, int y)
 
             for(int i = 0; i < 8; i++)
             {
-                if (checkFlip(color, y + dy[i], x + dx[i], dy[i], dx[i]))   //verificar el movimiento
+                if (checkFlip(color, y + dy[i], x + dx[i], i))   //verificar el movimiento
                 {
                     movimiento = true;
                     break;
@@ -113,15 +121,14 @@ void tablero::hacerMovimiento(int x, int y)
     fichas++;
     for(int i = 0; i < 8; i++)
     {
-        if (checkFlip(colour, y + dy[i], x + dx[i], dy[i], dx[i]))         //arriba de la ficha
+        if (checkFlip(colour, y + dy[i], x + dx[i], i))
         {
-            robarFichas(colour, y + dy[i], x + dx[i], dy[i], dx[i]);
+            robarFichas(colour, y + dy[i], x + dx[i], i);
         }
     }
 
     jug_actual = -1 * jug_actual; //invertir jugadores para cambio de turno;
     enemy = -1 * enemy;
-    return;
 }
 
 tablero::tablero()
@@ -273,7 +280,7 @@ void tablero::status_game()
     std::cout<<"\n";
 }
 
-void tablero::cederTurno(int current_player)
+void tablero::cederTurno()
 {
     std::cout << "Turno cedido\n\n";
     jug_actual = -1 * jug_actual; //invertir jugadores para cambio de turno;

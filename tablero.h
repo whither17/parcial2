@@ -12,26 +12,34 @@ private:
     unsigned int fichas;             //cantidad de fichas sobre el tablero
     std::string *nombres_col;        //nombres de las columnas del tablero, se usa para comprobar entradas
     short jug_actual, enemy, winner, saltos; //turno, ganador
-    short *dy, *dx;
+    short *dy, *dx;                  //diferencias en y y en x para recorrer alrededor de una casilla
 
 //  ****
 
-    bool checkFlip(char color, int y, int x, int dy, int dx);
+    bool checkFlip(char color, int y, int x, int i);
 /*Funcion que recibe un caracter (color), cuatro enteros
 *y retorna un buleano.
 *
 *Comprueba si hay una ficha del jugador en la misma linea de la ficha a colocar,
 *es decir, si encuentra una ficha del jugador a la izquierda, derecha, arriba, abajo o diagonales.
 *
-*@parametros: char color (- o *), int x (columna) int y (fila) int dy (diferencia en y) dx (diferencia en x).
+*@parametros: char color (- o *), int x (columna) int y (fila) int i posicion en dy dx.
 *@return: bool.
 */
-    void robarFichas(char color, int y, int x, int dy, int dx);
+    bool Isfree(int y, int x);
+/*Funcion que recibe dos enteros (fila, columna)
+*y verifica si esa posicion está vacía.
+*
+*@parametros: int x (columna) int y (fila).
+*@return: bool.
+*/
+
+    void robarFichas(char color, int y, int x, int i);
 /*Funcion que recibe un caracter (color) y cuatro enteros
 *y cambia las fichas presentes en una misma linea por las del
 *jugador.
 *
-*@parametros: char color (- o *), int x (columna) int y (fila) int dy (diferencia en y) dx (diferencia en x).
+*@parametros: char color (- o *), int x (columna) int y (fila) int i posicion en dy dx.
 *@return: void.
 */
     void nombreCols();
@@ -121,10 +129,10 @@ public:
 *@parametros: void.
 *@return: void.
 */
-    void cederTurno(int current_player);
+    void cederTurno();
 /*Funcion que cambia el turno del jugador actual por su contrincante.
 *
-*@parametros: int.
+*@parametros: void.
 *@return: void.
 */
 
