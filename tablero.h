@@ -12,6 +12,7 @@ private:
     unsigned int fichas;             //cantidad de fichas sobre el tablero
     std::string *nombres_col;        //nombres de las columnas del tablero, se usa para comprobar entradas
     short jug_actual, enemy, winner, saltos; //turno, ganador
+    short *dy, *dx;
 
 //  ****
 

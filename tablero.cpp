@@ -73,66 +73,31 @@ bool tablero::checkFlip(char color, int y, int x, int dy, int dx)
 
 bool tablero::comprobarMov(int x, int y)
 {
-    //Algoritmo basado en el trabajo de G V Ganesh Maurya
-    //https://coderspacket.com/othello-game-in-c
 
-    if ((y < 0) || (y >= rows) || (x < 0) || (x >= rows))
+    bool movimiento = false;
+
+    if ((y >= 0) || (y < rows) || (x >= 0) || (x < rows)) //verificar si la coordenada ingresada está dentro del tablero
     {
-        return false;
+        if (matriz[y][x].getColor() == ' ')    //verifica casilla vacia
+        {
+            char color = white;
+            if (current_player() == 1)      //seleccion de color
+            {
+                color = black;
+            }
+
+            for(int i = 0; i < 8; i++)
+            {
+                if (checkFlip(color, y + dy[i], x + dx[i], dy[i], dx[i]))   //verificar el movimiento
+                {
+                    movimiento = true;
+                    break;
+                }
+            }
+        }
     }
 
-    if (matriz[y][x].getColor() != ' ')    //verifica casilla vacia
-    {
-        return false;
-    }
-
-    char color = white;
-    if (current_player() == 1)      //seleccion de color
-    {
-        color = black;
-    }
-
-    if (checkFlip(color, y - 1, x, -1, 0))   //arriba de la ficha
-    {
-        return true;
-    }
-
-    if (checkFlip(color, y + 1, x, 1, 0))    //abajo de la ficha
-    {
-        return true;
-    }
-
-    if (checkFlip(color, y, x - 1, 0, -1))   //izq de la ficha
-    {
-        return true;
-    }
-
-    if (checkFlip(color, y, x + 1, 0, 1))    //der de la ficha
-    {
-        return true;
-    }
-
-    if (checkFlip(color, y + 1, x + 1, 1, 1))   //inf der
-    {
-        return true;
-    }
-
-    if (checkFlip(color, y + 1, x - 1, 1, -1))  //inf izq
-    {
-        return true;
-    }
-
-    if (checkFlip(color, y - 1, x + 1, -1, 1))  //sup der
-    {
-        return true;
-    }
-
-    if (checkFlip(color, y - 1, x - 1, -1, -1))  //sup izq
-    {
-        return true;
-    }
-
-    return false;
+    return movimiento;
 }
 
 void tablero::hacerMovimiento(int x, int y)
@@ -146,45 +111,12 @@ void tablero::hacerMovimiento(int x, int y)
     matriz[y][x].setColor(colour);
     jugadores[current_player()].addFichas(1);
     fichas++;
-
-    if (checkFlip(colour, y - 1, x, -1, 0))         //arriba de la ficha
+    for(int i = 0; i < 8; i++)
     {
-        robarFichas(colour, y - 1, x, -1, 0);
-    }
-
-    if (checkFlip(colour, y + 1, x, 1, 0))          //abajo de la ficha
-    {
-        robarFichas(colour, y + 1, x, 1, 0);
-    }
-
-    if (checkFlip(colour, y, x - 1, 0, -1))         //izquierda de la ficha
-    {
-        robarFichas(colour, y, x - 1, 0, -1);
-    }
-
-    if (checkFlip(colour, y, x + 1, 0, 1))          //derecha de la ficha
-    {
-        robarFichas(colour, y, x + 1, 0, 1);
-    }
-
-    if (checkFlip(colour, y + 1, x + 1, 1, 1))      //inf derecha
-    {
-        robarFichas(colour, y + 1, x + 1, 1, 1);
-    }
-
-    if (checkFlip(colour, y + 1, x - 1, 1, -1))     //inf izquierda
-    {
-        robarFichas(colour, y + 1, x - 1, 1, -1);
-    }
-
-    if (checkFlip(colour, y - 1, x + 1, -1, 1))     //sup derecha
-    {
-        robarFichas(colour, y - 1, x + 1, -1, 1);
-    }
-
-    if (checkFlip(colour, y - 1, x - 1, -1, -1))   //sup izquierda
-    {
-        robarFichas(colour, y - 1, x - 1, -1, -1);
+        if (checkFlip(colour, y + dy[i], x + dx[i], dy[i], dx[i]))         //arriba de la ficha
+        {
+            robarFichas(colour, y + dy[i], x + dx[i], dy[i], dx[i]);
+        }
     }
 
     jug_actual = -1 * jug_actual; //invertir jugadores para cambio de turno;
@@ -211,6 +143,9 @@ tablero::tablero()
             matriz[fil][col].setY(col);
         }
     }
+
+    dy = new short[] {-1, 1, 0, 0, 1, 1, -1, -1};
+    dx = new short[] {0, 0, -1, 1, 1, -1, 1, -1};
 
     nombres_col = new std::string[rows];
 
@@ -357,7 +292,8 @@ tablero::~tablero()
         delete []matriz[i];
     }
     delete []matriz;
-
+    delete []dy;
+    delete []dx;
     delete []nombres_col;
 
 }
