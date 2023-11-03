@@ -7,13 +7,14 @@ void imprimir_historial(const std::string& path);
 
 int main()
 {
+
     std::string path = "results.txt";
 
-    int opcion = 1;
+    char opcion = '1';
 
-    while(opcion != 0){
+    while(opcion != '0'){
 
-        std::cout << "\n -- Bienvenido al juego de Othello --\n ------------------------------------\n";
+        std::cout << "\n-- Bienvenido al juego de Othello --\n------------------------------------\n";
         std::cout << "1 - Jugar una nueva partida\n";
         std::cout << "2 - Mostrar historial de partidas\n";
         std::cout << "0 - Salir del Juego\n";
@@ -22,10 +23,10 @@ int main()
 
         switch(opcion)
         {
-        case 0: std::cout << "\n------------------------------------\nHas salido \n------------------------------------\n\n"<<std::endl;
+        case '0': std::cout << "\n------------------------------------\nHas salido \n------------------------------------\n\n"<<std::endl;
             break;
 
-        case 1: std::cout <<"\n------------------------------------\nNueva Partida \n------------------------------------\n\n";
+        case '1': std::cout <<"\n------------------------------------\nNueva Partida \n------------------------------------\n\n";
             {
                 juego* game = new juego;
                 game->start_game();
@@ -34,11 +35,16 @@ int main()
                 delete game;
             }
             break;
-        case 2: std::cout << "\n------------------------------------\nHistorico de Partidas \n------------------------------------\n\n"<<std::endl;
+        case '2': std::cout << "\n------------------------------------\nHistorico de Partidas \n------------------------------------\n\n"<<std::endl;
             {
                 imprimir_historial(path);
             }
             break;
+
+        default:
+        {
+            std::cout <<"\nSeleccionaste una opcion invalida \n";
+        }
         }
     }
 
