@@ -4,6 +4,11 @@
 
 
 void imprimir_historial(const std::string& path);
+/*Funcion que imprime en la consola el historial de partidas anteriores
+*
+*@parametros: const std::string& path.
+*@return: void.
+*/
 
 int main()
 {
@@ -55,6 +60,12 @@ int main()
 ///* Función para imprimir el historial de partidas*/
 
 void splitt_line(std::string* data, std::string row)
+/*Funcion que lee una fila del archivo de texto en formato string y la separa en un array dinámico
+*
+*@parametros: std::string* data, std::string row.
+*@return: void.
+*/
+
 {
     int pos = 1;
     int index = 0;
