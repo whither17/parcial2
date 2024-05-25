@@ -174,9 +174,7 @@ void juego::append_results(const std::string &path)
         bool gan;
         gan = table.darGanador();
         data[3] = Datosjuego[!gan][0]; //Jugador Ganador
-        //data[3] = Datosjuego[1][0]; //Test
         data[4] = Datosjuego[gan][1]; //Número de Fichas del ganador
-        //data[4] = std::to_string(2); //Test
     }
     std::ofstream archivo(path, std::ios::app); // Modo Append
 
@@ -187,7 +185,7 @@ void juego::append_results(const std::string &path)
     else {
         for (int i = 0; i < 5; ++i) {
             archivo << data[i];
-            if (i < 4) {
+            if (i < 1) {
                 archivo << ';';
             }
         }
